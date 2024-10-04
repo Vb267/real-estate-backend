@@ -26,3 +26,14 @@ class Listing(Base):
     owner_id = Column(Integer, ForeignKey("users.id"))
 
     owner = relationship("User", back_populates="listings")
+    category_id = Column(Integer, ForeignKey("categories.id"))
+    category = relationship("Category", back_populates="listings")
+
+
+class Category(Base):
+    __tablename__ = "categories"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, unique=True, index=True)
+
+    listings = relationship("Listing", back_populates="category")
